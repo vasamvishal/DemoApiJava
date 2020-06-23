@@ -14,23 +14,25 @@ public class CipService {
     @Autowired
     CipRepository cipRepository;
 
-    @Autowired
-    Employee employeed;
 
     public EmployeeRequest saveData(EmployeeRequest employee) {
+
         double height = employee.getSalary() * employee.getWeight();
         Employee employeeEntity = new Employee(employee.getName(), employee.getAge(), employee.getSalary(), employee.getWeight(), height);
         Employee save = cipRepository.save(employeeEntity);
-        return employeed.toEmployeeRequest(save);
+        return employeeEntity.toEmployeeRequest(save);
     }
 
-    public List<EmployeeRequest> getData(EmployeeRequest employee) {
-        String emp = employee.getName();
+    public List<EmployeeRequest> getData() {
         List<EmployeeRequest> employeeRequested = new ArrayList<>();
-        List<Employee> lastName = cipRepository.findByLastName(emp);
+        List<Employee> lastName = cipRepository.findAll();
         for (Employee value : lastName) {
-            employeeRequested.add(employeed.toEmployeeRequest(value));
+            employeeRequested.add(toEmployeeRequest(value));
         }
         return employeeRequested;
+    }
+
+    private EmployeeRequest toEmployeeRequest(Employee value) {
+        return new EmployeeRequest(value.getName(), String.valueOf(value.getAge()), value.getSalary(), value.getWeight());
     }
 }

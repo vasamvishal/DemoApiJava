@@ -10,7 +10,7 @@ public class EmployeeRequest {
 
     public EmployeeRequest(String name, String age, double salary, double weight) {
         this.name = name;
-        this.age = Integer.valueOf(age);
+        this.age = Integer.parseInt(age);
         this.salary = salary;
         this.weight = weight;
     }

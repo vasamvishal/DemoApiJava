@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import com.example.demo.request.EmployeeRequest;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,12 +14,16 @@ import java.util.Objects;
 public class Employee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     String name;
     int age;
     double salary;
     double weight;
     double height;
+
+    public Employee() {
+    }
 
     public Employee(String name, int age, double salary, double weight, double height) {
         this.name = name;
@@ -87,5 +92,16 @@ public class Employee {
 
     public EmployeeRequest toEmployeeRequest(Employee employee) {
         return new EmployeeRequest(employee.name, Integer.toString(employee.age), employee.salary, employee.weight);
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                ", weight=" + weight +
+                ", height=" + height +
+                '}';
     }
 }

@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CipRepository extends JpaRepository<Employee, Long> {
-    List<Employee> findByLastName(String lastName);
 }
 
