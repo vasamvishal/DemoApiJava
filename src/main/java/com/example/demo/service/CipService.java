@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Employee;
+import com.example.demo.entity.UserProfile;
 import com.example.demo.repository.CipRepository;
+import com.example.demo.repository.OneToOne;
 import com.example.demo.request.EmployeeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ import java.util.List;
 public class CipService {
     @Autowired
     CipRepository cipRepository;
+
+    @Autowired
+    OneToOne oneToOne;
 
 
     public EmployeeRequest saveData(EmployeeRequest employee) {
@@ -30,6 +35,19 @@ public class CipService {
             employeeRequested.add(toEmployeeRequest(value));
         }
         return employeeRequested;
+    }
+
+    public Boolean saveDataNew(UserProfile userProfile) {
+        UserProfile save = oneToOne.save(userProfile);
+        if (save != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public List<UserProfile> getNewData() {
+        List<UserProfile> lastName = oneToOne.findAll();
+        return lastName;
     }
 
     private EmployeeRequest toEmployeeRequest(Employee value) {

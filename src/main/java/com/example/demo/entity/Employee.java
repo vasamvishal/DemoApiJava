@@ -3,20 +3,14 @@ package com.example.demo.entity;
 import com.example.demo.request.EmployeeRequest;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 public class Employee {
-
-    @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
     String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int age;
     double salary;
     double weight;
