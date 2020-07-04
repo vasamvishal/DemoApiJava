@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CipRepository extends JpaRepository<Employee, Long> {
+public interface CipRepository extends JpaRepository<Employee, Integer> {
 }
 

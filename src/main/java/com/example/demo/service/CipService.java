@@ -20,12 +20,21 @@ public class CipService {
     OneToOne oneToOne;
 
 
-    public EmployeeRequest saveData(EmployeeRequest employee) {
+    public EmployeeRequest saveData(EmployeeRequest employee) throws RuntimeException {
 
         double height = employee.getSalary() * employee.getWeight();
         Employee employeeEntity = new Employee(employee.getName(), employee.getAge(), employee.getSalary(), employee.getWeight(), height);
-        Employee save = cipRepository.save(employeeEntity);
-        return employeeEntity.toEmployeeRequest(save);
+        try {
+            boolean b = cipRepository.existsById(employee.getAge());
+            if (!b) {
+                Employee save = cipRepository.save(employeeEntity);
+                return employeeEntity.toEmployeeRequest(save);
+            } else {
+                return null;
+            }
+        } catch (RuntimeException r) {
+            throw new RuntimeException("Dddd");
+        }
     }
 
     public List<EmployeeRequest> getData() {

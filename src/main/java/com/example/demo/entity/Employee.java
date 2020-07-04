@@ -10,7 +10,6 @@ import java.util.Objects;
 public class Employee {
     String name;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     int age;
     double salary;
     double weight;
